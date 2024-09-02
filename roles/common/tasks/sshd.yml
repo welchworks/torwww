@@ -1,0 +1,26 @@
+---
+- name: Start & Enable SSHD
+  ansible.builtin.systemd:
+    name: sshd
+    state: started
+    enabled: true
+
+- name: Copy SSH key to authorized keys
+  ansible.builtin.copy:
+    src: id_toradmin.pub
+    dest: "/root/.ssh/authorized_keys"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Disable Password Logins
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#PasswordAuthentication yes$"
+    line: "PasswordAuthentication no"
+
+- name: Restart & Enable SSHD
+  ansible.builtin.systemd:
+    name: sshd.service
+    state: restarted
+...

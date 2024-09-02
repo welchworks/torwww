@@ -1,0 +1,22 @@
+---
+- name: Start & Enable warp-svc service
+  ansible.builtin.systemd:
+    name: warp-svc.service
+    enabled: true
+    state: started
+
+- name: Start & Enable WARP
+  ansible.builtin.shell:
+    cmd: |
+      yes | warp-cli registration new
+      yes | warp-cli connect
+
+- name: Verify WARP is on
+  ansible.builtin.uri:
+    url: "https://cloudflare.com/cdn-cgi/trace"
+    return_content: true
+  register: cloudflare_trace
+  until: "'warp=on' in cloudflare_trace.content"
+  retries: 10
+  delay: 1
+...

@@ -1,0 +1,46 @@
+---
+- name: Propagate /var/www
+  ansible.builtin.file:
+    path: /var/www
+    state: directory
+    owner: nginx
+    group: nginx
+
+- name: Propagate /var/www/html
+  ansible.builtin.file:
+    path: /var/www/html
+    state: directory
+    owner: nginx
+    group: nginx
+
+- name: Change server in /etc/nginx/nginx.conf
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: "^        listen       80;$"
+    line: "        listen       127.0.0.180;"
+
+- name: Remove IPV6 in /etc/nginx/nginx.conf
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: "^        listen       [::]:80;"
+    state: absent
+
+- name: Change web dir in /etc/nginx/nginx.conf
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: "^        root         /usr/share/nginx/html;"
+    line: "        root         /var/www/html;"
+
+- name: Clone git repo
+  ansible.builtin.git:
+    repo: https://github.com/welchworks/www.git
+    dest: /var/www/html
+  become: true
+  become_user: nginx
+
+- name: Start & Enable nginx
+  ansible.builtin.systemd:
+    name: nginx.service
+    state: started
+    enabled: true
+...

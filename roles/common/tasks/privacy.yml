@@ -1,0 +1,17 @@
+---
+- name: Disable services
+  ansible.builtin.systemd:
+    name:
+      - dnf-makecache.timer
+      - packagekit-offline-update
+      - packagekit
+    state: stopped
+    enabled: false
+
+- name: GNOME & timedatectl
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.software download-updates false
+      timedatectl set-timezone Etc/UTC
+      timedatectl set-ntp false
+...

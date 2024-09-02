@@ -1,0 +1,28 @@
+---
+# packages.yml - setup repo(s) and install package(s)
+
+- name: Enable CloudFlare repo
+  ansible.builtin.yum_repository:
+    baseurl: "https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
+    enabled: true
+
+- name: Update all packages
+  ansible.builtin.yum:
+    name: *
+    state: latest
+
+- name: install packages
+  ansible.builtin.yum:
+    name:
+      - cloudflare-warp
+      - tor
+      - nyx
+      - nginx
+    state: present
+
+- name: remove connectivity package
+  ansible.builtin.yum:
+    name:
+      - NetworkManager-config-connectivity-fedora
+    state: absent
+...
