@@ -1,10 +1,19 @@
 ---
 - name: Disable services
   ansible.builtin.systemd:
-    name:
-      - dnf-makecache.timer
-      - packagekit-offline-update
-      - packagekit
+    name: dnf-makecache.timer
+    state: stopped
+    enabled: false
+
+- name: Disable services
+  ansible.builtin.systemd:
+    name: packagekit
+    state: stopped
+    enabled: false
+
+- name: Disable services
+  ansible.builtin.systemd:
+    name: packagekit-offline-update
     state: stopped
     enabled: false
 

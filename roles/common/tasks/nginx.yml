@@ -17,7 +17,7 @@
   ansible.builtin.lineinfile:
     path: /etc/nginx/nginx.conf
     regexp: "^        listen       80;$"
-    line: "        listen       127.0.0.180;"
+    line: "        listen       127.0.0.1:80;"
 
 - name: Remove IPV6 in /etc/nginx/nginx.conf
   ansible.builtin.lineinfile:

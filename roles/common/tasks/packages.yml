@@ -2,9 +2,9 @@
 # packages.yml - setup repo(s) and install package(s)
 
 - name: Enable CloudFlare repo
-  ansible.builtin.yum_repository:
-    baseurl: "https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
-    enabled: true
+  ansible.builtin.get_url:
+    url: "https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
+    dest: "/etc/yum.repos.d/cloudflare-warp-ascii.repo"
 
 - name: Update all packages
   ansible.builtin.yum:
