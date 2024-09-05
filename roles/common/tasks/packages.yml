@@ -8,7 +8,7 @@
 
 - name: Update all packages
   ansible.builtin.yum:
-    name: *
+    name: "*"
     state: latest
 
 - name: install packages
