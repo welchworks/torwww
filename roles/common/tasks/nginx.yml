@@ -40,7 +40,7 @@
 
 - name: Cronjob to sync repo every half hour
   ansible.builtin.cron:
-    minute: "30"
+    minute: "0,30"
     user: nginx
     job: "git clone htps://github.com/welchworks/www.git /var/www/html"
 
