@@ -26,13 +26,6 @@
     state: present
     insertafter: "^HiddenServiceVersion 3$"
 
-- name: Enable SSH HiddenServicePort
-  ansible.builtin.lineinfile:
-    path: "/etc/tor/torrc"
-    line: "HiddenServicePort 22 127.0.0.1:22"
-    state: present
-    insertafter: "^HiddenServicePort 80 127.0.0.1:80"
-
 - name: "Start & Disable Tor"
   ansible.builtin.systemd:
     name: tor.service

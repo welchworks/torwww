@@ -2,7 +2,6 @@
 # tasks file for common
 - include_tasks: packages.yml
 - include_tasks: privacy.yml
-- include_tasks: sshd.yml
 - include_tasks: nginx.yml
 - include_tasks: warp.yml
 - include_tasks: tor.yml
