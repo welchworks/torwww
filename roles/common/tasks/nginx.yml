@@ -43,7 +43,7 @@
     name: "git-clone"
     minute: "0,30"
     user: nginx
-    job: "git clone htps://github.com/welchworks/www.git /var/www/html"
+    job: "git clone https://github.com/welchworks/www.git /var/www/git && /bin/mv /var/www/git/* /var/www/html/ && rm -rf /var/www/git/* /var/www/git/.g*"
 
 - name: Start & Enable nginx
   ansible.builtin.systemd:
