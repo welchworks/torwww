@@ -6,11 +6,6 @@
     url: "https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
     dest: "/etc/yum.repos.d/cloudflare-warp-ascii.repo"
 
-- name: Update all packages
-  ansible.builtin.yum:
-    name: "*"
-    state: latest
-
 - name: install packages
   ansible.builtin.yum:
     name:
