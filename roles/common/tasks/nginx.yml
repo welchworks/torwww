@@ -31,6 +31,14 @@
     regexp: "^        root         /usr/share/nginx/html;"
     line: "        root         /var/www/html;"
 
+- name: Copy git config file
+  ansible.builtin.copy:
+    src: git.conf
+    dest: /etc/nginx/default.d/git.conf
+    owner: nginx
+    group: nginx
+    mode: 0644
+
 - name: Clone git repo
   ansible.builtin.git:
     repo: https://github.com/welchworks/www.git
